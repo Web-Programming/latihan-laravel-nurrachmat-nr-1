@@ -13,8 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//home/beranda/index
 Route::get('/', function () {
     return view('welcome');
 });
 
-//belajar router
+//membuat route (url) ke halaman halo
+Route::get("/halo", function () {
+    return "Hallo semua";
+});
+
+Route::get("/mahasiswa/{nama}", function ($nama) {
+    echo "<h2>Hallo semua</h2>";
+    echo "Nama Saya $nama";
+});
