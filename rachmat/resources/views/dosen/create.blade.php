@@ -1,3 +1,6 @@
-<div>
-    <!-- Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant -->
-</div>
+@extends('layouts.master')
+
+@section('title', 'Halamanan Dosen')
+@section('content')
+    <h1>Create Dosen</h1>
+@endsection

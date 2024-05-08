@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DosenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +35,6 @@ Route::get("/fakultas/index", function() {
     $data = ['fakultas' => ['Fakultas Ilmu Komputer dan Rekayasa', 'Fakultas Ekonomi dan Bisnis']];
     return view('fakultas.index', $data);
 });
+
+//route ke controller dan halaman dosen
+Route::resource('dosen', DosenController::class);
