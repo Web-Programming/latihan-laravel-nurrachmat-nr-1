@@ -68,3 +68,7 @@ Route::get("/prodi/create", [ProdiController::class, 'create'])
     ->name("prodi.create");
 Route::post("prodi/store", [ProdiController::class, "store"])
     ->name("prodi.store");
+Route::get("/prodi/index", [ProdiController::class, 'index'])
+    ->name("prodi.index");
+Route::get("/prodi/{id}", [ProdiController::class, 'show'])
+    ->name("prodi.show");

@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 class ProdiController extends Controller
 {
     public function index(){
-
+        $listprodi = Prodi::all();
+        return view("prodi.index", ['listprodi' => $listprodi]);
     }
+
+    public function show($id){
+        $prodi = Prodi::find($id);
+        return view("prodi.show", ['prodi' => $prodi]);
+    }
+
     public function create(){
         return view("prodi.create");
     }
@@ -23,7 +30,7 @@ class ProdiController extends Controller
         $prodi = new Prodi();
         $prodi->nama = $validateData['nama'];
         $prodi->save();
-        
+
         $request->session()->flash('info', "Data prodi $prodi->nama berhasil disimpan ke database");
         return redirect()->route('prodi.create');
     }
