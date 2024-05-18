@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\ProdiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,3 +63,8 @@ Route::get('/mahasiswa/deleteElq', [MahasiswaController::class, 'deleteElq']);
 Route::get('/mahasiswa/selectElq', [MahasiswaController::class, 'selectElq']);
 
 Route::get('/mahasiswa/massinsert', [MahasiswaController::class, 'store']);
+
+Route::get("/prodi/create", [ProdiController::class, 'create'])
+    ->name("prodi.create");
+Route::post("prodi/store", [ProdiController::class, "store"])
+    ->name("prodi.store");
