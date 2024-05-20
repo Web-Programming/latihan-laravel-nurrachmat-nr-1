@@ -34,4 +34,26 @@ class ProdiController extends Controller
         $request->session()->flash('info', "Data prodi $prodi->nama berhasil disimpan ke database");
         return redirect()->route('prodi.create');
     }
+
+    public function edit(Prodi $prodi){
+        return view("prodi.edit", ['prodi' => $prodi]);
+    }
+
+    public function update(Prodi $prodi, Request $request) {
+        //dump($request);
+        $validateData = $request->validate([
+            'nama' => 'required|min:5|max:20'
+        ]);
+
+        Prodi::where("id", $prodi->id)->update($validateData);
+        $request->session()->flash('info', "Data prodi $prodi->nama berhasil diupdate");
+        return redirect()->route('prodi.index');
+    }
+
+    public function destroy(Prodi $prodi) {
+        //Prodi::where("id", $prodi->id)->delete();
+        $prodi->delete();
+        return redirect()->route('prodi.index')
+            ->with('info', "Data prodi berhasil dihapus");
+    }
 }

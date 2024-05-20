@@ -72,3 +72,9 @@ Route::get("/prodi/index", [ProdiController::class, 'index'])
     ->name("prodi.index");
 Route::get("/prodi/{id}", [ProdiController::class, 'show'])
     ->name("prodi.show");
+Route::get('/prodi/{prodi}/edit', [ProdiController::class, 'edit'])
+    ->name('prodi.edit');
+Route::patch('/prodi/{prodi}', [ProdiController::class, 'update'])
+    ->name('prodi.update');
+Route::delete('/prodi/{prodi}', [ProdiController::class, 'destroy'])
+    ->name('prodi.destroy');
