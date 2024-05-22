@@ -17,6 +17,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
+                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -25,6 +26,11 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->nama }}</td>
+                    <td>
+                        @if($item->foto != '')
+                            <img src="{{ asset('storage/'.$item->foto) }}" width="100"/>
+                        @endif
+                    </td>
                     <td>
                         <form action="{{ route('prodi.destroy', ["prodi" => $item->id]) }}" method="POST">
                             @method("DELETE")
