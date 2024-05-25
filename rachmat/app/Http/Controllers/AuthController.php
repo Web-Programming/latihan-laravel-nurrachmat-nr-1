@@ -31,12 +31,12 @@ class AuthController extends Controller
         //form validation
         $request->validate(
             [
-                'username' => 'required',
+                'email' => 'required',
                 'password' => 'required'
             ]
         );
         //ambil data dari $request, username dan password saja
-        $credential = $request->only('username', 'password');
+        $credential = $request->only('email', 'password');
         //proses cek login di tabel users
         if(Auth::attempt($credential)){
             //jika login berhasil
@@ -56,5 +56,19 @@ class AuthController extends Controller
             ->withErrors(
                 ['login_gagal' => 'User tidak terdaftar (email atau password salah)!']
             );
+    }
+
+    public function logout(Request $request){
+        //menghapus session login
+        $request->session()->flush();
+        Auth::logout();
+        return redirect('login');
+    }
+
+    public function register(){
+
+    }
+    public function proses_register(Request $request){
+
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProdiController;
@@ -78,3 +79,10 @@ Route::patch('/prodi/{prodi}', [ProdiController::class, 'update'])
     ->name('prodi.update');
 Route::delete('/prodi/{prodi}', [ProdiController::class, 'destroy'])
     ->name('prodi.destroy');
+
+
+//CUSTOM AUTHENTICATION
+Route::get("login", [AuthController::class, 'index'])->name("login");
+Route::post("proses_login", [AuthController::class, 'proses_login'])->name("proses_login");
+
+Route::get("logout", [AuthController::class, 'logout'])->name("logout");
