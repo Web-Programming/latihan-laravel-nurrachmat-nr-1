@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,7 +84,23 @@ Route::delete('/prodi/{prodi}', [ProdiController::class, 'destroy'])
 
 
 //CUSTOM AUTHENTICATION
+Route::get("register", [AuthController::class, 'register'])->name("register");
 Route::get("login", [AuthController::class, 'index'])->name("login");
+
+Route::post("proses_register", [AuthController::class, 'proses_register'])->name("proses_register");
 Route::post("proses_login", [AuthController::class, 'proses_login'])->name("proses_login");
 
 Route::get("logout", [AuthController::class, 'logout'])->name("logout");
+
+// atur menggunakan group middleware pada routing
+// didalamnya terdapat group untuk mengecek kondisi login
+// jika user yang login merupakan admin maka akan diarahkan ke AdminController
+// jika user yang login merupakan user biasa maka akan diarahkan ke UserController
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['cek_login:admin']], function () {
+        Route::resource('admin', AdminController::class);
+    });
+    Route::group(['middleware' => ['cek_login:user']], function () {
+        Route::resource('user', UserController::class);
+    });
+});

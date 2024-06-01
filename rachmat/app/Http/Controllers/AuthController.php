@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -66,9 +69,34 @@ class AuthController extends Controller
     }
 
     public function register(){
-
+        return view('register');
     }
-    public function proses_register(Request $request){
 
+    public function proses_register(Request $request){
+        // buat validasi untuk proses register
+        // validasi semua field wajib di isi
+        // validasi email harus unique atau tidak boleh duplicate
+
+        $validator =  Validator::make($request->all(),[
+            'name'=>'required',
+            'email'=>'required|email|unique:users',
+            'password'=>'required'
+        ]);
+
+        // jika gagal kembali ke halaman register dengan munculkan pesan error
+        if($validator ->fails()){
+            return redirect('/register')
+             ->withErrors($validator)
+             ->withInput();
+        }
+        // jika berhasil isi level & hash password agar secure
+        $request['level'] = 'user';
+        $request['password'] = Hash::make($request->password);
+
+        // masukkan semua data pada request ke table user
+        User::create($request->all());
+
+        // jika berhasil arahkan ke halaman login
+        return redirect()->route('login');
     }
 }
